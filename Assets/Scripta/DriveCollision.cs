@@ -15,9 +15,6 @@ public class DriveCollision : MonoBehaviour
 
     private Vector3 direction;
     private Rigidbody rb;
-    private float backDistance = 1.0f; // Adjust this value based on how much you want the car to move back.
-    private float turnAngle = 90.0f; // Adjust this value based on how much you want the car to turn.
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,18 +36,14 @@ public class DriveCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject.CompareTag("Prekazka"))
         {
-            Debug.Log("Collision with obstacle");
+            
+            Debug.Log("o holero, chito freddy fazbear");
 
-            // Move back and turn
-            Vector3 backVector = -collision.contacts[0].normal * backDistance;
-            transform.position += backVector;
-
-            // Rotate by 90 degrees around the up axis
-            transform.Rotate(Vector3.up, turnAngle);
-
-            // You can also add any other logic here, e.g., decrease health, play a sound, etc.
+            
+            Destroy(collision.gameObject);
         }
     }
 }
