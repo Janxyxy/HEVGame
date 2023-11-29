@@ -38,7 +38,7 @@ public class SpawnPrekazky : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             SmazaniPrekazek();
-            muzespawnovat = true;
+            muzespawnovat = true;   
 
         }
     }
