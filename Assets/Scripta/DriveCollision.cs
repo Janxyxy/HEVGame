@@ -46,9 +46,8 @@ public class DriveCollision : MonoBehaviour
 
 
         if (Input.GetKeyDown(KeyCode.R))
-        {
-            transform.position = new Vector3(0, 0, 0);  
-
+        {       
+            NoDrive();
         }
 
     }
@@ -58,6 +57,19 @@ public class DriveCollision : MonoBehaviour
         drive = true;
         canvas2.gameObject.SetActive(false);
         particle.enableEmission = true;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+
+    }
+
+    public void NoDrive()
+    {
+        direction = Vector3.forward;
+        rb.velocity = direction * 0;
+        drive = false;
+        transform.position = new Vector3(0, 0, 0); 
+        canvas2.gameObject.SetActive(true);
+        particle.enableEmission = false;
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
     }
 
@@ -68,6 +80,23 @@ public class DriveCollision : MonoBehaviour
         {
             
             Debug.Log("Kolize s prekaou");
+            transform.Rotate(0, 90, 0); //Otoèení 90
+            
+
+
+            if (direction == Vector3.forward)
+            {
+                direction = Vector3.right;
+            }else if (direction == Vector3.right)
+            {
+                direction = Vector3.back;
+            }else if (direction == Vector3.back)
+            {
+                direction = Vector3.left;
+            }else if (direction == Vector3.left)
+            {
+                direction = Vector3.forward;
+            }
 
         }
     }

@@ -11,10 +11,12 @@ public class SpawnPrekazky : MonoBehaviour
 
     Camera camera;
     List<GameObject> prekazky;
+    private bool muzespawnovat;
 
     // Start is called before the first frame update
     void Start()
     {
+        muzespawnovat = true;
         camera = GetComponent<Camera>();
         prekazky = new List<GameObject>();
     }
@@ -22,7 +24,7 @@ public class SpawnPrekazky : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && muzespawnovat)
         {
             Debug.Log("This is a message to the console.");
             var ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -35,12 +37,23 @@ public class SpawnPrekazky : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            foreach (GameObject prekazkaObject in prekazky)
-            {
-                DestroyImmediate(prekazkaObject, true);
-            }
-            prekazky.Clear();
+            SmazaniPrekazek();
+            muzespawnovat = true;
 
         }
+    }
+
+    private void SmazaniPrekazek()
+    {
+        foreach (GameObject prekazkaObject in prekazky)
+        {
+            DestroyImmediate(prekazkaObject, true);
+        }
+        prekazky.Clear();
+    }
+
+    public void Hra()
+    {
+        muzespawnovat = false;
     }
 }
