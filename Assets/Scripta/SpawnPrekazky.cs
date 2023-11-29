@@ -10,11 +10,13 @@ public class SpawnPrekazky : MonoBehaviour
     private GameObject Prekazka;
 
     Camera camera;
+    List<GameObject> prekazky;
 
     // Start is called before the first frame update
     void Start()
     {
         camera = GetComponent<Camera>();
+        prekazky = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -26,8 +28,19 @@ public class SpawnPrekazky : MonoBehaviour
             var ray = camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
-                Instantiate(Prekazka, new Vector3(hit.point.x - (float)0.35, hit.point.y,hit.point.z - (float)0.35), Quaternion.identity);
+                GameObject newPrekazka = Instantiate(Prekazka, new Vector3(hit.point.x - 0.35f, hit.point.y, hit.point.z - 0.35f), Quaternion.identity);
+                prekazky.Add(newPrekazka); 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach (GameObject prekazkaObject in prekazky)
+            {
+                DestroyImmediate(prekazkaObject, true);
+            }
+            prekazky.Clear();
+
         }
     }
 }
