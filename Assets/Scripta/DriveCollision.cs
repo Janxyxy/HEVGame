@@ -17,6 +17,8 @@ public class DriveCollision : MonoBehaviour
     private Canvas canvas2;
     [SerializeField]
     private ParticleSystem particle;
+    [SerializeField]
+    private AudioSource nightcall;
 
     private Vector3 direction;
     private Rigidbody rb;
