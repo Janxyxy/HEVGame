@@ -9,7 +9,7 @@ public class SpawnPrekazky : MonoBehaviour
     [SerializeField]
     private GameObject Prekazka;
 
-    Camera camera;
+    Camera cameraa;
     List<GameObject> prekazky;
     private bool muzespawnovat;
 
@@ -17,7 +17,7 @@ public class SpawnPrekazky : MonoBehaviour
     void Start()
     {
         muzespawnovat = true;
-        camera = GetComponent<Camera>();
+        cameraa = GetComponent<Camera>();
         prekazky = new List<GameObject>();
     }
 
@@ -26,8 +26,8 @@ public class SpawnPrekazky : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && muzespawnovat)
         {
-            Debug.Log("This is a message to the console.");
-            var ray = camera.ScreenPointToRay(Input.mousePosition);
+            Debug.Log("Prekazka se spawnula.");
+            var ray = cameraa.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
                 GameObject newPrekazka = Instantiate(Prekazka, new Vector3(hit.point.x - 0.35f, hit.point.y, hit.point.z - 0.35f), Quaternion.identity);
@@ -37,23 +37,31 @@ public class SpawnPrekazky : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SmazaniPrekazek();
-            muzespawnovat = true;   
+            Reset();
 
         }
+    }
+
+    public void Reset()
+    {
+        SmazaniPrekazek();
+        muzespawnovat = true;
     }
 
     private void SmazaniPrekazek()
     {
         foreach (GameObject prekazkaObject in prekazky)
         {
-            DestroyImmediate(prekazkaObject, true);
+            Destroy(prekazkaObject);
         }
         prekazky.Clear();
     }
 
-    public void Hra()
+    public void NemuzeSpawnovat()
     {
         muzespawnovat = false;
     }
+
+
+  
 }

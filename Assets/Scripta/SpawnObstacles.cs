@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class SpawnObstacles : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject Cíl;
+    [SerializeField]
+    private GameObject Prekazka_zabiji;
+
+    GameObject lastcilobstacles;
+
+    private Vector3[] pozicecile = new Vector3[]
     {
+        new Vector3(0, 0.5f, 2), //levl 0
+        new Vector3(0, 0.5f, 4), //levl 1...
+        new Vector3(5, 0.5f, 6)
+    };
+
+
+
+    public void SpawnObs(int levl)
+    {
+        if(levl < pozicecile.Length)
+        {
+            lastcilobstacles = Instantiate(Cíl, pozicecile[levl], Quaternion.Euler(0, 180, 0));
+        }
+       
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public void DeletePreviosObs()
     {
-        
+        if(lastcilobstacles != null)
+        {
+            Destroy(lastcilobstacles);
+        }
+
     }
 }

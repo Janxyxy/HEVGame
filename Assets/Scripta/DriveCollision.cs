@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,22 +20,35 @@ public class DriveCollision : MonoBehaviour
     private ParticleSystem particle;
     [SerializeField]
     private AudioSource nightcall;
+    [SerializeField]
+    private SpawnObstacles spawnObstacles;
+    [SerializeField]
+    private SpawnPrekazky spawnPrekazky;
+
 
     private Vector3 direction;
     private Rigidbody rb;
 
     bool drive = false;
+    int levl;
+
 
     // Start is called before the first frame update
     void Start()
     {
-      
-        canvas2.gameObject.SetActive(true);
-        canvas.gameObject.SetActive(true);
-        particle.enableEmission = false;
+        Setup();
+
+    }
+
+    private void Setup()
+    {
+        levl = 0;
+        var emission = particle.emission;
+        emission.enabled = false;
         rb = GetComponent<Rigidbody>();
         transform.forward = Vector3.forward;
         direction = Vector3.forward;
+        spawnObstacles.SpawnObs(levl);
     }
 
     // Update is called once per frame
@@ -50,15 +64,22 @@ public class DriveCollision : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {       
             NoDrive();
+            spawnObstacles.DeletePreviosObs();
         }
 
+    }
+    public void HideCanvas(Canvas canvas)
+    {
+        //Button1
+        canvas.gameObject.SetActive(false);
     }
 
     public void Drive()
     {
         drive = true;
         canvas2.gameObject.SetActive(false);
-        particle.enableEmission = true;
+        var emission = particle.emission;
+        emission.enabled = true;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
 
     }
@@ -68,15 +89,25 @@ public class DriveCollision : MonoBehaviour
         direction = Vector3.forward;
         rb.velocity = direction * 0;
         drive = false;
+        spawnPrekazky.Reset();
         transform.position = new Vector3(0, 0, 0); 
         canvas2.gameObject.SetActive(true);
-        particle.enableEmission = false;
+        var emission = particle.emission;
+        emission.enabled = false;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.CompareTag("Cíl")) {
+            levl++;
+            NoDrive();
+            spawnObstacles.DeletePreviosObs();
+            spawnObstacles.SpawnObs(levl);
+
+        }
         
         if (collision.gameObject.CompareTag("Prekazka"))
         {
