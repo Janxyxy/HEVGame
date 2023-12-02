@@ -120,8 +120,7 @@ public class DriveCollision : MonoBehaviour
             levl++;
             NoDrive();
             spawnObstacles.DeletePreviosObs();
-            spawnObstacles.SpawnObs(levl);
-
+            spawnObstacles.SpawnObs(levl);   
         }
 
         if (collision.gameObject.CompareTag("Zabiji"))

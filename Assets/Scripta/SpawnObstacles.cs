@@ -20,7 +20,7 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(5.4f, 0.5f, 3.4f), // levl 2 
         new Vector3(-7.9f, 0.5f, -1.3f), // levl 3 
         new Vector3(3.3f, 0.5f, -6.8f), // levl 4
-        new Vector3(-4.6f, 0.5f, -4.4f) // levl 5
+        new Vector3(-4.5f, 0.5f, -4.5f) // levl 5
     };
 
     private Vector3[] prekazkalevl_0 = new Vector3[] //levl 0 prekazky
@@ -73,13 +73,13 @@ public class SpawnObstacles : MonoBehaviour
 
     private Vector3[] prekazkalevl_5 = new Vector3[] // levl 5 prekazky
     {
-        new Vector3(-5.4f, 0.5f, -3.1f),
-        new Vector3(-3.7f, 0.5f, -3.1f),
-        new Vector3(-5.72f, 0.5f, -4.4f),
-        new Vector3(-5.72f, 0.5f, -5.7f),
-        new Vector3(-4.6f, 0.5f, -5.7f),
-        new Vector3(-3.72f, 0.5f, -4.4f),
-        new Vector3(-3.72f, 0.5f, -5.4f)
+        new Vector3(-5.5f, 0.5f, -3.5f),
+        new Vector3(-3.5f, 0.5f, -3.5f),
+        new Vector3(-5.5f, 0.5f, -4.5f),
+        new Vector3(-5.5f, 0.5f, -5.5f),
+        new Vector3(-4.5f, 0.5f, -5.5f),
+        new Vector3(-3.5f, 0.5f, -4.5f),
+        new Vector3(-3.5f, 0.5f, -5.5f)
     };
 
     Vector3[] VybranePrekazky = new Vector3[0]; 
@@ -115,10 +115,13 @@ public class SpawnObstacles : MonoBehaviour
         else if(levl == 5)
         {
             VybranePrekazky = prekazkalevl_5;
+        }else if(levl >= 6)
+        {
+
         }
         foreach (Vector3 pozice in VybranePrekazky)
         {
-            GameObject obstacle = Instantiate(Prekazka_zabiji, pozice, Quaternion.identity);
+            GameObject obstacle = Instantiate(Prekazka_zabiji, pozice, Quaternion.Euler(0, 180, 0));
             previosprekazky.Add(obstacle);
         }
 
@@ -134,6 +137,7 @@ public class SpawnObstacles : MonoBehaviour
         {
             Destroy(prekazka);
         }
+        previosprekazky.Clear();
 
     }
 }
