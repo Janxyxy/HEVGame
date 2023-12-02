@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,6 +25,8 @@ public class DriveCollision : MonoBehaviour
     private SpawnObstacles spawnObstacles;
     [SerializeField]
     private SpawnPrekazky spawnPrekazky;
+    [SerializeField]
+    private float Border;
 
 
     private Vector3 direction;
@@ -38,7 +41,10 @@ public class DriveCollision : MonoBehaviour
     {
         Setup();
 
+
     }
+
+
 
     private void Setup()
     {
@@ -57,12 +63,18 @@ public class DriveCollision : MonoBehaviour
         if (drive)
         {
             rb.velocity = direction * speed * Time.deltaTime;
+            Vector3 stoppozice = new Vector3(
+               Mathf.Clamp(transform.position.x, -Border / 1, Border / 1),
+               transform.position.y,
+               Mathf.Clamp(transform.position.z, -Border / 2, Border / 2)
+           );
+
+            transform.position = stoppozice;
         }
-     
 
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {       
+            if (Input.GetKeyDown(KeyCode.R))
+        {
             NoDrive();
             spawnObstacles.DeletePreviosObs();
         }
@@ -90,47 +102,54 @@ public class DriveCollision : MonoBehaviour
         rb.velocity = direction * 0;
         drive = false;
         spawnPrekazky.Reset();
-        transform.position = new Vector3(0, 0, 0); 
+        transform.position = new Vector3(0, 0, 0);
         canvas2.gameObject.SetActive(true);
         var emission = particle.emission;
         emission.enabled = false;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        
+
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Cíl")) {
+        if (collision.gameObject.CompareTag("Cï¿½l"))
+        {
             levl++;
             NoDrive();
             spawnObstacles.DeletePreviosObs();
             spawnObstacles.SpawnObs(levl);
 
         }
-        
+
         if (collision.gameObject.CompareTag("Prekazka"))
         {
-            
+
             Debug.Log("Kolize s prekaou");
-            transform.Rotate(0, 90, 0); //Otoèení 90
-            
+            transform.Rotate(0, 90, 0); //Otoï¿½enï¿½ 90
+
 
 
             if (direction == Vector3.forward)
             {
                 direction = Vector3.right;
-            }else if (direction == Vector3.right)
+            }
+            else if (direction == Vector3.right)
             {
                 direction = Vector3.back;
-            }else if (direction == Vector3.back)
+            }
+            else if (direction == Vector3.back)
             {
                 direction = Vector3.left;
-            }else if (direction == Vector3.left)
+            }
+            else if (direction == Vector3.left)
             {
                 direction = Vector3.forward;
             }
 
         }
     }
+   
 }
+
+

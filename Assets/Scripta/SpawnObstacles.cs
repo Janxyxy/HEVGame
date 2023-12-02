@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnObstacles : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Cíl;
+    private GameObject Cil;
     [SerializeField]
     private GameObject Prekazka_zabiji;
 
@@ -24,7 +24,7 @@ public class SpawnObstacles : MonoBehaviour
     {
         if(levl < pozicecile.Length)
         {
-            lastcilobstacles = Instantiate(Cíl, pozicecile[levl], Quaternion.Euler(0, 180, 0));
+            lastcilobstacles = Instantiate(Cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
         }
        
         
