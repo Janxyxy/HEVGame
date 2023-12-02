@@ -14,14 +14,15 @@ public class SpawnObstacles : MonoBehaviour
 
     private Vector3[] pozicecile = new Vector3[]
     {
-        new Vector3(0, 0.5f, 2), //levl 0
+        new Vector3(4.5f, 0.5f, -3f), //levl 0
         new Vector3(0, 0.5f, 4), //levl 1...
         new Vector3(5, 0.5f, 6)
     };
 
     private Vector3[] prekazkalevl_0 = new Vector3[] //levl 0 prekazky
     {
-         new Vector3(2, 0.5f, 2), // prvni prekazka v levlu 1
+         new Vector3(6f, 0.5f, 2.5f), // prvni prekazka v levlu 0
+         new Vector3(0f, 0.5f, 4f), // druha prekazka v levlu 0
     };
 
     private Vector3[] prekazkalevl_1 = new Vector3[] //levl 1 prekazky
