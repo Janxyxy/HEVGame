@@ -5801,7 +5801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9a1d13145ffba4ebba2d8e10ac7858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 150
   auto: {fileID: 1323451802}
   canvas: {fileID: 2067628880}
   canvas2: {fileID: 671697807}

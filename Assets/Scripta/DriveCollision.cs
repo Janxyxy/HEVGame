@@ -62,7 +62,7 @@ public class DriveCollision : MonoBehaviour
     {
         if (drive)
         {
-    
+
             rb.velocity = direction * speed * Time.deltaTime;
         }
 
@@ -108,7 +108,7 @@ public class DriveCollision : MonoBehaviour
 
         var emission = particle.emission;
         emission.enabled = false;
-   
+
 
 
     }
@@ -122,6 +122,11 @@ public class DriveCollision : MonoBehaviour
             spawnObstacles.DeletePreviosObs();
             spawnObstacles.SpawnObs(levl);
 
+        }
+
+        if (collision.gameObject.CompareTag("Zabiji"))
+        {
+            NoDrive();
         }
 
         if (collision.gameObject.CompareTag("Prekazka"))
