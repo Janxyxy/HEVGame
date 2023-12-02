@@ -10,6 +10,7 @@ public class SpawnObstacles : MonoBehaviour
     private GameObject Prekazka_zabiji;
 
     GameObject lastcilobstacles;
+    List<GameObject> previosprekazky = new List<GameObject>();
 
     private Vector3[] pozicecile = new Vector3[]
     {
@@ -18,22 +19,52 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(5, 0.5f, 6)
     };
 
+    private Vector3[] prekazkalevl_0 = new Vector3[] //levl 0 prekazky
+    {
+         new Vector3(2, 0.5f, 2), // prvni prekazka v levlu 1
+    };
 
+    private Vector3[] prekazkalevl_1 = new Vector3[] //levl 1 prekazky
+    {
+         new Vector3(3, 0.5f, 3),
+    };
+
+    Vector3[] VybranePrekazky = new Vector3[0]; 
 
     public void SpawnObs(int levl)
     {
-        if(levl < pozicecile.Length)
+        if (levl < pozicecile.Length)
         {
             lastcilobstacles = Instantiate(Cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
         }
-       
-        
+
+
+        if (levl == 0)
+        {
+            VybranePrekazky = prekazkalevl_0;
+        }
+        else if (levl == 1)
+        {
+            VybranePrekazky = prekazkalevl_1;
+        }
+
+        foreach (Vector3 pozice in VybranePrekazky)
+        {
+            GameObject obstacle = Instantiate(Prekazka_zabiji, pozice, Quaternion.identity);
+            previosprekazky.Add(obstacle);
+        }
+
     }
     public void DeletePreviosObs()
     {
-        if(lastcilobstacles != null)
+        if (lastcilobstacles != null)
         {
             Destroy(lastcilobstacles);
+        }
+
+        foreach (GameObject prekazka in previosprekazky)
+        {
+            Destroy(prekazka);
         }
 
     }

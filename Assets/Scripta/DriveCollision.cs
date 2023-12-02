@@ -25,8 +25,6 @@ public class DriveCollision : MonoBehaviour
     private SpawnObstacles spawnObstacles;
     [SerializeField]
     private SpawnPrekazky spawnPrekazky;
-    [SerializeField]
-    private float Border;
 
 
     private Vector3 direction;
@@ -35,16 +33,18 @@ public class DriveCollision : MonoBehaviour
     bool drive = false;
     int levl;
 
+    //border
+    private float minX = -9.5f;
+    private float maxX = 9.5f;
+    private float minZ = -4.85f;
+    private float maxZ = 4.85f;
 
     // Start is called before the first frame update
     void Start()
     {
         Setup();
 
-
     }
-
-
 
     private void Setup()
     {
@@ -62,21 +62,21 @@ public class DriveCollision : MonoBehaviour
     {
         if (drive)
         {
+    
             rb.velocity = direction * speed * Time.deltaTime;
-            Vector3 stoppozice = new Vector3(
-               Mathf.Clamp(transform.position.x, -Border / 1, Border / 1),
-               transform.position.y,
-               Mathf.Clamp(transform.position.z, -Border / 2, Border / 2)
-           );
-
-            transform.position = stoppozice;
         }
 
+        if (auto.position.x < minX || auto.position.x > maxX || auto.position.z < minZ || auto.position.z > maxZ) //border check
+        {
+            Debug.Log("Out of border");
+            NoDrive();
+        }
 
-            if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             NoDrive();
             spawnObstacles.DeletePreviosObs();
+            spawnObstacles.SpawnObs(levl);
         }
 
     }
@@ -92,28 +92,30 @@ public class DriveCollision : MonoBehaviour
         canvas2.gameObject.SetActive(false);
         var emission = particle.emission;
         emission.enabled = true;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
     }
 
     public void NoDrive()
     {
+        drive = false;
         direction = Vector3.forward;
         rb.velocity = direction * 0;
-        drive = false;
         spawnPrekazky.Reset();
         transform.position = new Vector3(0, 0, 0);
-        canvas2.gameObject.SetActive(true);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        canvas2.gameObject.SetActive(true); //playbutton
+
         var emission = particle.emission;
         emission.enabled = false;
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+   
 
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("C�l"))
+        if (collision.gameObject.CompareTag("Cil"))
         {
             levl++;
             NoDrive();
@@ -149,7 +151,7 @@ public class DriveCollision : MonoBehaviour
 
         }
     }
-   
+
 }
 
 
