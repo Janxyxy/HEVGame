@@ -19,7 +19,7 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(0, 0.5f, 4), //levl 1...
         new Vector3(5.4f, 0.5f, 3.4f), // levl 2 
         new Vector3(-7.9f, 0.5f, -1.3f), // levl 3 
-        new Vector3(3.3f, 0.5f, -6.8f), // levl 4
+        new Vector3(3.3f, 0.5f, -4.6f), // levl 4
         new Vector3(-4.6f, 0.5f, -4.4f) // levl 5
     };
 
