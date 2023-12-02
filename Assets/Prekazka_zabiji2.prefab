@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4455007781565402883}
   - component: {fileID: 5293482419599149757}
   m_Layer: 0
-  m_Name: Prekazka_zabiji
+  m_Name: Prekazka_zabiji2
   m_TagString: Zabiji
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

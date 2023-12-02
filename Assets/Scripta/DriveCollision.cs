@@ -20,11 +20,11 @@ public class DriveCollision : MonoBehaviour
     [SerializeField]
     private ParticleSystem particle;
     [SerializeField]
-    private AudioSource nightcall;
-    [SerializeField]
     private SpawnObstacles spawnObstacles;
     [SerializeField]
     private SpawnPrekazky spawnPrekazky;
+
+
 
 
     private Vector3 direction;
@@ -108,10 +108,9 @@ public class DriveCollision : MonoBehaviour
 
         var emission = particle.emission;
         emission.enabled = false;
-
-
-
     }
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
