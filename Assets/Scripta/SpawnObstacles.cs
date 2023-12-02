@@ -32,6 +32,8 @@ public class SpawnObstacles : MonoBehaviour
     private Vector3[] prekazkalevl_1 = new Vector3[] //levl 1 prekazky
     {
          new Vector3(3, 0.5f, 3),
+         new Vector3(-3, 0.5f, 2.7f),
+         new Vector3(0.1f, 0.5f, 2.7f),
     };
 
     private Vector3[] prekazkalevl_2 = new Vector3[] // levl 2 prekazky
