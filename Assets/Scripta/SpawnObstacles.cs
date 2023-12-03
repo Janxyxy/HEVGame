@@ -6,9 +6,12 @@ using UnityEngine;
 public class SpawnObstacles : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Cil;
+    private GameObject cil;
     [SerializeField]
-    private GameObject Prekazka_zabiji;
+    private GameObject prekazka_zabiji;
+    [SerializeField]
+    private GameManagment gamemanagment;
+
 
     GameObject lastcilobstacles;
     List<GameObject> previosprekazky = new List<GameObject>();
@@ -84,13 +87,13 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(-3.5f, 0.5f, -5.5f)
     };
 
-    Vector3[] VybranePrekazky = new Vector3[0]; 
+    Vector3[] VybranePrekazky = new Vector3[0];
 
     public void SpawnObs(int levl)
     {
         if (levl < pozicecile.Length)
         {
-            lastcilobstacles = Instantiate(Cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
+            lastcilobstacles = Instantiate(cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
         }
 
 
@@ -119,11 +122,12 @@ public class SpawnObstacles : MonoBehaviour
             VybranePrekazky = prekazkalevl_5;
         }else if(levl >= 6)
         {
-
+            //show win
+            gamemanagment.ShowWin();
         }
         foreach (Vector3 pozice in VybranePrekazky)
         {
-            GameObject obstacle = Instantiate(Prekazka_zabiji, pozice, Quaternion.Euler(0, 180, 0));
+            GameObject obstacle = Instantiate(prekazka_zabiji, pozice, Quaternion.Euler(0, 180, 0));
             previosprekazky.Add(obstacle);
         }
 

@@ -7,7 +7,7 @@ using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Audio : MonoBehaviour
+public class GameManagment : MonoBehaviour
 {
     [SerializeField]
     private AudioSource nightcall;
@@ -17,13 +17,22 @@ public class Audio : MonoBehaviour
     private Sprite muted;
     [SerializeField]
     private Sprite unmuted;
-
+    [SerializeField]
+    private GameObject win;
+    [SerializeField]
+    private GameObject loading;
+    [SerializeField]
+    private GameObject downloadbutton;
+    [SerializeField]
+    private GameObject playbutton;
 
     bool mute = false;
 
     void Start()
     {
+        playbutton.SetActive(false);
         nightcall.Play();
+        win.SetActive(false);
     }
 
     public void ChangeMute()
@@ -40,5 +49,25 @@ public class Audio : MonoBehaviour
             nightcall.Pause();
             potlacenizvuku.image.sprite = muted;
         }
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void HideLoading()
+    {
+        loading.SetActive(false);
+        playbutton.SetActive(true);
+        downloadbutton.SetActive(false);
+        win.SetActive(false);
+    }
+
+    public void ShowWin()
+    {
+        win.SetActive(true);
+        playbutton.SetActive(false);
+        downloadbutton.SetActive(true);
     }
 }

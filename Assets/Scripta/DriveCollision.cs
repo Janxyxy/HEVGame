@@ -14,15 +14,13 @@ public class DriveCollision : MonoBehaviour
     [SerializeField]
     private Transform auto;
     [SerializeField]
-    private Canvas canvas;
-    [SerializeField]
-    private Canvas canvas2;
-    [SerializeField]
     private ParticleSystem particle;
     [SerializeField]
     private SpawnObstacles spawnObstacles;
     [SerializeField]
     private SpawnPrekazky spawnPrekazky;
+    [SerializeField]
+    private GameManagment gamemanagment;
 
 
 
@@ -40,21 +38,20 @@ public class DriveCollision : MonoBehaviour
     private float maxZ = 4.85f;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Setup();
 
-    }
 
-    private void Setup()
+    public void Setup()
     {
+        gamemanagment.HideLoading();
         levl = 0;
         var emission = particle.emission;
         emission.enabled = false;
         rb = GetComponent<Rigidbody>();
         transform.forward = Vector3.forward;
         direction = Vector3.forward;
+        spawnObstacles.DeletePreviosObs();
         spawnObstacles.SpawnObs(levl);
+
     }
 
     // Update is called once per frame
@@ -80,16 +77,11 @@ public class DriveCollision : MonoBehaviour
         }
 
     }
-    public void HideCanvas(Canvas canvas)
-    {
-        //Button1
-        canvas.gameObject.SetActive(false);
-    }
 
     public void Drive()
     {
         drive = true;
-        canvas2.gameObject.SetActive(false);
+
         var emission = particle.emission;
         emission.enabled = true;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -104,7 +96,6 @@ public class DriveCollision : MonoBehaviour
         spawnPrekazky.Reset();
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        canvas2.gameObject.SetActive(true); //playbutton
 
         var emission = particle.emission;
         emission.enabled = false;
@@ -119,7 +110,8 @@ public class DriveCollision : MonoBehaviour
             levl++;
             NoDrive();
             spawnObstacles.DeletePreviosObs();
-            spawnObstacles.SpawnObs(levl);   
+            spawnObstacles.SpawnObs(levl);
+            Debug.Log(levl);
         }
 
         if (collision.gameObject.CompareTag("Zabiji"))
@@ -129,11 +121,9 @@ public class DriveCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Prekazka"))
         {
-
             Debug.Log("Kolize s prekaou");
-            transform.Rotate(0, 90, 0); //Oto�en� 90
-
-
+            
+            transform.Rotate(0, 90, 0); 
 
             if (direction == Vector3.forward)
             {

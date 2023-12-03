@@ -30,7 +30,7 @@ public class SpawnPrekazky : MonoBehaviour
             var ray = cameraa.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
-                GameObject newPrekazka = Instantiate(Prekazka, new Vector3(hit.point.x - 0.35f, hit.point.y, hit.point.z - 0.35f), Quaternion.identity);
+                GameObject newPrekazka = Instantiate(Prekazka, new Vector3(hit.point.x - 0.35f, 0, hit.point.z - 0.35f), Quaternion.identity); //Y je na 0  
                 prekazky.Add(newPrekazka); 
             }
         }
@@ -62,6 +62,4 @@ public class SpawnPrekazky : MonoBehaviour
         muzespawnovat = false;
     }
 
-
-  
 }
