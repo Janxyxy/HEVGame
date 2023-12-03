@@ -67,7 +67,17 @@ public class GameManagment : MonoBehaviour
     public void ShowWin()
     {
         win.SetActive(true);
-        playbutton.SetActive(false);
         downloadbutton.SetActive(true);
+        playbutton.SetActive(false);
+    }
+
+    public void Hideplay()
+    {
+        playbutton.SetActive(false);
+    }
+
+    public void Showplay()
+    {
+        playbutton.SetActive(true);
     }
 }

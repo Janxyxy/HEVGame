@@ -44,14 +44,14 @@ public class DriveCollision : MonoBehaviour
     {
         gamemanagment.HideLoading();
         levl = 0;
-        var emission = particle.emission;
-        emission.enabled = false;
         rb = GetComponent<Rigidbody>();
         transform.forward = Vector3.forward;
         direction = Vector3.forward;
         spawnObstacles.DeletePreviosObs();
         spawnObstacles.SpawnObs(levl);
 
+        var emission = particle.emission;
+        emission.enabled = false;
     }
 
     // Update is called once per frame
@@ -81,7 +81,7 @@ public class DriveCollision : MonoBehaviour
     public void Drive()
     {
         drive = true;
-
+        gamemanagment.Hideplay();
         var emission = particle.emission;
         emission.enabled = true;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -91,6 +91,7 @@ public class DriveCollision : MonoBehaviour
     public void NoDrive()
     {
         drive = false;
+        gamemanagment.Showplay();
         direction = Vector3.forward;
         rb.velocity = direction * 0;
         spawnPrekazky.Reset();
