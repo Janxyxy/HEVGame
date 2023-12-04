@@ -11,6 +11,8 @@ public class SpawnObstacles : MonoBehaviour
     private GameObject prekazka_zabiji;
     [SerializeField]
     private GameManagment gamemanagment;
+    [SerializeField]
+    private GameObject kanistr;
 
 
     GameObject lastcilobstacles;
@@ -87,7 +89,14 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(-3.5f, 0.5f, -5.5f)
     };
 
+    private Vector3[] kanistlevl_0 = new Vector3[] // levl 5 prekazky
+ {
+        new Vector3(-5.5f, 0.5f, -3.5f),
+
+ };
+
     Vector3[] VybranePrekazky = new Vector3[0];
+    Vector3[] VybraneKanistr = new Vector3[0];
 
     public void SpawnObs(int levl)
     {
@@ -100,6 +109,7 @@ public class SpawnObstacles : MonoBehaviour
         if (levl == 0)
         {
             VybranePrekazky = prekazkalevl_0;
+            VybraneKanistr = kanistlevl_0;
         }
         else if (levl == 1)
         {
@@ -108,7 +118,7 @@ public class SpawnObstacles : MonoBehaviour
         else if (levl == 2)
         {
             VybranePrekazky = prekazkalevl_2;
-        } 
+        }
         else if (levl == 3)
         {
             VybranePrekazky = prekazkalevl_3;
@@ -117,10 +127,11 @@ public class SpawnObstacles : MonoBehaviour
         {
             VybranePrekazky = prekazkalevl_4;
         }
-        else if(levl == 5)
+        else if (levl == 5)
         {
             VybranePrekazky = prekazkalevl_5;
-        }else if(levl >= 6)
+        }
+        else if (levl >= 6)
         {
             //show win
             gamemanagment.ShowWin();
@@ -128,6 +139,11 @@ public class SpawnObstacles : MonoBehaviour
         foreach (Vector3 pozice in VybranePrekazky)
         {
             GameObject obstacle = Instantiate(prekazka_zabiji, pozice, Quaternion.Euler(0, 180, 0));
+            previosprekazky.Add(obstacle);
+        }
+        foreach (Vector3 pozice in VybraneKanistr)
+        {
+            GameObject obstacle = Instantiate(kanistr, pozice, Quaternion.Euler(0, 180, 0));
             previosprekazky.Add(obstacle);
         }
 
