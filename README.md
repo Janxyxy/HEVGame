@@ -1,7 +1,7 @@
 # Týmová domácí práce
 ## Zadání 
 
->Cílem 2-3členných týmů je vytvořit hru, která bude splňovat požadavky, ale zároveň v ní zapojíte také vlastní iniciativu a vlastní představivost. 
+Cílem 2-3členných týmů je vytvořit hru, která bude splňovat požadavky, ale zároveň v ní zapojíte také vlastní iniciativu a vlastní představivost. 
 Většina týmů se skládá ze třech členů, doporučuji si tedy práci rozumně rozdělit. Někomu jde lépe grafika, někomu zase programování, někomu třeba game design, leadership nebo GIT. 
 Název hry nechám na vás, stejně tak téma. 
 Vytvořte hru na ohraničené rovné ploše (nevyužívejte terén, ale spíše plane). Pro příklad zvolím ovládání hloupého vysávacího robota, ale zvolte si téma, jaké chcete (slepec, auto…)
@@ -15,18 +15,15 @@ Levely: V levelech se nachází překážky, ke kterým se robot chová pokažd�
 -	Konec levelu – místo, kam má hráč dojít
 GamePlay: Hráč hraje hru tak, že kliknutím na podlahu přidá na místo kliknutí klasickou překážku, jinak robot ovládat nejde.
 
->Čas na vypracování bude cca 3 týdny (bude upřesněno), v průběhu těchto pracovních týdnů budou nějaké části hodin HEV vyhrazeny vašim otázkám, pokud byste se někde zasekli a potřebovali byste pomoc.
+Čas na vypracování bude cca 3 týdny (bude upřesněno), v průběhu těchto pracovních týdnů budou nějaké části hodin HEV vyhrazeny vašim otázkám, pokud byste se někde zasekli a potřebovali byste pomoc.
 
 ## Todo list
-- Rozdělit si práci
-- Vymyslet téma hry
-- Design levelu
- 
-### Scripty
-- Pohyb
-- Kolize
-- Spawn
 
-### Co už je hotovo
-- Vytvořit projekt :)
-
+- [x] Vytvořit projekt :)
+- [x] Pohyb
+- [x] 3D modely
+- [x] Textury
+- [x] Kolize
+- [ ] Veci na sbírání
+- [x] End screen
+- [x] Hudbička
