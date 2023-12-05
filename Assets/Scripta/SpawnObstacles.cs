@@ -36,7 +36,12 @@ public class SpawnObstacles : MonoBehaviour
     private Vector3[] pozicecanistru = new Vector3[]  //kanistr
     {
         new Vector3(4.4f, 0.5f, 0f),
-        new Vector3(4.7f, 0.4f, 0f)
+        new Vector3(-3.76f, 0.4f, -1f),
+        new Vector3(-6.9f, 0.4f, 2.54f),
+        new Vector3(6.7f, 0.4f, -1),
+        new Vector3(-5.4f, 0.4f, 3.26f),
+        new Vector3(7.8f, 0.4f, 3.5f)
+
     };
 
     private Vector3[] prekazkalevl_0 = new Vector3[] //levl0 prekazky
