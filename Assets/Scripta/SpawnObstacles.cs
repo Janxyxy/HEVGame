@@ -89,11 +89,41 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(-3.5f, 0.5f, -5.5f)
     };
 
-    private Vector3[] kanistlevl_0 = new Vector3[] // levl 5 prekazky
+    private Vector3[] kanistlevl_0 = new Vector3[] // levl 0 kanist
  {
-        new Vector3(-5.5f, 0.5f, -3.5f),
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
+
+ }; private Vector3[] kanistlevl_1 = new Vector3[] // levl 2 kanist
+ {
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
 
  };
+    private Vector3[] kanistlevl_2 = new Vector3[] // levl 3 kanist
+{
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
+
+};
+    private Vector3[] kanistlevl_3 = new Vector3[] // levl 4 kanist
+{
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
+
+};
+    private Vector3[] kanistlevl_4 = new Vector3[] // levl 5 kanist
+{
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
+
+};
+    private Vector3[] kanistlevl_5 = new Vector3[] // levl 5 kanist
+{
+        new Vector3(3.5f, 0.25f,1f),
+        new Vector3(1.5f, 0.25f, -0.3f),
+
+};
 
     Vector3[] VybranePrekazky = new Vector3[0];
     Vector3[] VybraneKanistr = new Vector3[0];
@@ -114,22 +144,27 @@ public class SpawnObstacles : MonoBehaviour
         else if (levl == 1)
         {
             VybranePrekazky = prekazkalevl_1;
+            VybraneKanistr = kanistlevl_1;
         }
         else if (levl == 2)
         {
             VybranePrekazky = prekazkalevl_2;
+            VybraneKanistr = kanistlevl_2;
         }
         else if (levl == 3)
         {
             VybranePrekazky = prekazkalevl_3;
+            VybraneKanistr = kanistlevl_3;
         }
         else if (levl == 4)
         {
             VybranePrekazky = prekazkalevl_4;
+            VybraneKanistr = kanistlevl_4;
         }
         else if (levl == 5)
         {
             VybranePrekazky = prekazkalevl_5;
+            VybraneKanistr = kanistlevl_5;
         }
         else if (levl >= 6)
         {
