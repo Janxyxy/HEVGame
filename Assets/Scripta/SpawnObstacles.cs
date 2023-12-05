@@ -88,7 +88,7 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(8.1f, 0.5f, -1.7f),
         new Vector3(3.6f, 0.5f, -1.7f),
         new Vector3(6.7f, 0.5f, 3.4f),
-        new Vector3(1.3f, 0.5f, 2.5f),
+        new Vector3(3.1f, 0.5f, 1.7f), //zmenil jsem :)
         new Vector3(-2.3f, 0.5f, 4.9f),
         new Vector3(-2.6f, 0.5f, 1.8f),
         new Vector3(-7.34f, 0.5f, 5.4f)
@@ -96,8 +96,8 @@ public class SpawnObstacles : MonoBehaviour
 
     private Vector3[] prekazkalevl_5 = new Vector3[] // levl 5 prekazky
     {
-        new Vector3(-5.5f, 0.5f, -3.5f),
-        new Vector3(-3.5f, 0.5f, -3.5f),
+        new Vector3(-6f, 0.5f, -3.5f),
+        new Vector3(-3f, 0.5f, -3.5f),
         new Vector3(-5.5f, 0.5f, -4.5f),
         new Vector3(-5.5f, 0.5f, -5.5f),
         new Vector3(-4.5f, 0.5f, -5.5f),
@@ -148,6 +148,7 @@ public class SpawnObstacles : MonoBehaviour
         {
             //show win
             gamemanagment.ShowWin();
+            gamemanagment.Vyhra();
         }
         foreach (Vector3 pozice in VybranePrekazky)
         {

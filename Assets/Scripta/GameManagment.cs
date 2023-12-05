@@ -30,7 +30,14 @@ public class GameManagment : MonoBehaviour
     private GameObject levltext;
     [SerializeField]
     private TextMeshProUGUI levltexttext;
-
+    [SerializeField]
+    private GameObject cilhry;
+    [SerializeField]
+    private TextMeshProUGUI seberkanistry;
+    [SerializeField]
+    private AudioSource vroom;
+    [SerializeField]
+    private AudioSource vyhra;
 
 
     bool mute = false;
@@ -38,11 +45,14 @@ public class GameManagment : MonoBehaviour
 
     void Start()
     {
+        NulaKanistru();
+        cilhry.SetActive(false);
 ;       playbutton.SetActive(false);
         nightcall.Play();
         win.SetActive(false);
         win.SetActive(false);
         levltext.SetActive(false);
+
     }
 
     public void ChangeMute()
@@ -68,19 +78,24 @@ public class GameManagment : MonoBehaviour
 
     public void HideLoading()
     {
-        loading.SetActive(false);
+        cilhry.SetActive (true);
+        levltext.SetActive(true);
         playbutton.SetActive(true);
+
+        loading.SetActive(false);
         downloadbutton.SetActive(false);
         win.SetActive(false);
-        levltext.SetActive(true);
+      
     }
 
     public void ShowWin()
     {
         win.SetActive(true);
         downloadbutton.SetActive(true);
+
         playbutton.SetActive(false);
         levltext.SetActive(false);
+        cilhry.SetActive(false);
     }
 
     public void Hideplay()
@@ -97,5 +112,30 @@ public class GameManagment : MonoBehaviour
         level++;
         levltexttext.text = "Levl " + level.ToString();
     }
-  
+
+    public void NulaKanistru()
+    {
+        seberkanistry.text = "Seber kanystr (0/1)";
+        seberkanistry.color = Color.red;
+    }
+
+    public void VsechnyKanistry()
+    {
+        seberkanistry.text = "Seber kanystr (1/1)";
+        seberkanistry.color = Color.green;
+    }
+
+    public void VroomPlay()
+    {
+        vroom.Play();
+    }
+    public void VrooStop()
+    {
+        vroom.Pause();
+    }
+    public void Vyhra()
+    {
+        vyhra.Play();   
+    }
+
 }

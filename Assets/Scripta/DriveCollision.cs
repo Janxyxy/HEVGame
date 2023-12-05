@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Android;
@@ -21,6 +22,8 @@ public class DriveCollision : MonoBehaviour
     private SpawnPrekazky spawnPrekazky;
     [SerializeField]
     private GameManagment gamemanagment;
+    [SerializeField]
+    private GameObject skillissue;
 
     private Vector3 direction;
     private Rigidbody rb;
@@ -33,10 +36,10 @@ public class DriveCollision : MonoBehaviour
     private bool isIncreasing = true;
 
     //border
-    private float minX = -9.5f;
-    private float maxX = 9.5f;
-    private float minZ = -4.85f;
-    private float maxZ = 4.85f;
+    private float minX = -11f;
+    private float maxX = 11f;
+    private float minZ = -5.25f;
+    private float maxZ = 5.25f;
 
     // Start is called before the first frame update
 
@@ -52,6 +55,7 @@ public class DriveCollision : MonoBehaviour
         direction = Vector3.forward;
         spawnObstacles.DeletePreviosObs();
         spawnObstacles.SpawnObs(levl);
+        skillissue.SetActive(false);
 
         var emission = particle.emission;
         emission.enabled = false;
@@ -69,6 +73,7 @@ public class DriveCollision : MonoBehaviour
         if (auto.position.x < minX || auto.position.x > maxX || auto.position.z < minZ || auto.position.z > maxZ) //border check
         {
             Debug.Log("Out of border");
+            StartCoroutine(SkillIssueCoroutine());
             NoDrive();
         }
 
@@ -102,6 +107,8 @@ public class DriveCollision : MonoBehaviour
         emission.enabled = true;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
+        gamemanagment.VroomPlay();
+
     }
 
     public void NoDrive()
@@ -119,31 +126,39 @@ public class DriveCollision : MonoBehaviour
         var emission = particle.emission;
         emission.enabled = false;
 
+        gamemanagment.ChangeLevel(levl);
         spawnObstacles.ZnicKanystr();
         spawnObstacles.DeletePreviosObs();
         spawnObstacles.SpawnObs(levl);
-    
+        gamemanagment.NulaKanistru();
+        gamemanagment.VrooStop();
+
+
 
     }
 
- 
+    private IEnumerator SkillIssueCoroutine()
+    {
+        skillissue.SetActive(true);
+        yield return new WaitForSeconds(2);
+        skillissue.SetActive(false);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Cil"))
         {
             Debug.Log("Kolize s cílem");
-            if (kanystr == 1) {
+            if (kanystr >= 1) {
                 levl++;
-                kanystr = 0;
-                gamemanagment.ChangeLevel(levl);
                 NoDrive();
-                spawnObstacles.DeletePreviosObs();
-                spawnObstacles.SpawnObs(levl);
+
             }
             else
             {
                 NoDrive();
+                StartCoroutine(SkillIssueCoroutine());
+
             }
           
         }
@@ -151,12 +166,16 @@ public class DriveCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Zabiji"))
         {
             NoDrive();
+            StartCoroutine(SkillIssueCoroutine());
+
+
         }
 
         if (collision.gameObject.CompareTag("Kanystr"))
         {
             kanystr++;
             spawnObstacles.ZnicKanystr();
+            gamemanagment.VsechnyKanistry();
             Debug.Log("Kolize s kanystrem");
         }
 
