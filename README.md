@@ -24,6 +24,10 @@ GamePlay: Hráč hraje hru tak, že kliknutím na podlahu přidá na místo klik
 - [x] 3D modely
 - [x] Textury
 - [x] Kolize
-- [ ] Veci na sbírání
+- [x] Veci na sbírání
 - [x] End screen
 - [x] Hudbička
+- [x] Sound efekty
+
+- [x] Vše máme
+
