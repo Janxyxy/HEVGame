@@ -22,14 +22,15 @@ public class DriveCollision : MonoBehaviour
     [SerializeField]
     private GameManagment gamemanagment;
 
-
-
-
     private Vector3 direction;
     private Rigidbody rb;
 
-    bool drive = false;
-    int levl;
+    public float rotationSpeed = 50f;
+    private bool drive = false;
+    public int levl;
+    private int kanystr;
+    private bool spin;
+    private bool isIncreasing = true;
 
     //border
     private float minX = -9.5f;
@@ -44,6 +45,8 @@ public class DriveCollision : MonoBehaviour
     {
         gamemanagment.HideLoading();
         levl = 0;
+        kanystr = 0;
+        spin = true;
         rb = GetComponent<Rigidbody>();
         transform.forward = Vector3.forward;
         direction = Vector3.forward;
@@ -72,8 +75,20 @@ public class DriveCollision : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             NoDrive();
-            spawnObstacles.DeletePreviosObs();
-            spawnObstacles.SpawnObs(levl);
+        }
+
+        if (spin)
+        {
+            if (rotationSpeed >= 75f || rotationSpeed <= -75f)
+            {
+                isIncreasing = !isIncreasing;
+            }
+            rotationSpeed += isIncreasing ? 1f : -1f;
+        }
+
+        if (spin)
+        {
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
         }
 
     }
@@ -81,6 +96,7 @@ public class DriveCollision : MonoBehaviour
     public void Drive()
     {
         drive = true;
+        //spin = false;
         gamemanagment.Hideplay();
         var emission = particle.emission;
         emission.enabled = true;
@@ -91,6 +107,8 @@ public class DriveCollision : MonoBehaviour
     public void NoDrive()
     {
         drive = false;
+        kanystr = 0;
+        spin = true;
         gamemanagment.Showplay();
         direction = Vector3.forward;
         rb.velocity = direction * 0;
@@ -100,24 +118,46 @@ public class DriveCollision : MonoBehaviour
 
         var emission = particle.emission;
         emission.enabled = false;
+
+        spawnObstacles.ZnicKanystr();
+        spawnObstacles.DeletePreviosObs();
+        spawnObstacles.SpawnObs(levl);
+    
+
     }
 
-
+ 
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Cil"))
         {
-            levl++;
-            NoDrive();
-            spawnObstacles.DeletePreviosObs();
-            spawnObstacles.SpawnObs(levl);
-            Debug.Log(levl);
+            Debug.Log("Kolize s cílem");
+            if (kanystr == 1) {
+                levl++;
+                kanystr = 0;
+                gamemanagment.ChangeLevel(levl);
+                NoDrive();
+                spawnObstacles.DeletePreviosObs();
+                spawnObstacles.SpawnObs(levl);
+            }
+            else
+            {
+                NoDrive();
+            }
+          
         }
 
         if (collision.gameObject.CompareTag("Zabiji"))
         {
             NoDrive();
+        }
+
+        if (collision.gameObject.CompareTag("Kanystr"))
+        {
+            kanystr++;
+            spawnObstacles.ZnicKanystr();
+            Debug.Log("Kolize s kanystrem");
         }
 
         if (collision.gameObject.CompareTag("Prekazka"))

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Android;
@@ -25,14 +26,23 @@ public class GameManagment : MonoBehaviour
     private GameObject downloadbutton;
     [SerializeField]
     private GameObject playbutton;
+    [SerializeField]
+    private GameObject levltext;
+    [SerializeField]
+    private TextMeshProUGUI levltexttext;
+
+
 
     bool mute = false;
+   
 
     void Start()
     {
-        playbutton.SetActive(false);
+;       playbutton.SetActive(false);
         nightcall.Play();
         win.SetActive(false);
+        win.SetActive(false);
+        levltext.SetActive(false);
     }
 
     public void ChangeMute()
@@ -62,6 +72,7 @@ public class GameManagment : MonoBehaviour
         playbutton.SetActive(true);
         downloadbutton.SetActive(false);
         win.SetActive(false);
+        levltext.SetActive(true);
     }
 
     public void ShowWin()
@@ -69,6 +80,7 @@ public class GameManagment : MonoBehaviour
         win.SetActive(true);
         downloadbutton.SetActive(true);
         playbutton.SetActive(false);
+        levltext.SetActive(false);
     }
 
     public void Hideplay()
@@ -80,4 +92,10 @@ public class GameManagment : MonoBehaviour
     {
         playbutton.SetActive(true);
     }
+    public void ChangeLevel(int level)
+    {
+        level++;
+        levltexttext.text = "Levl " + level.ToString();
+    }
+  
 }

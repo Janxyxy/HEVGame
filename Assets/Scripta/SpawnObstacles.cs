@@ -10,25 +10,36 @@ public class SpawnObstacles : MonoBehaviour
     [SerializeField]
     private GameObject prekazka_zabiji;
     [SerializeField]
-    private GameManagment gamemanagment;
+    private GameObject kanystr;
     [SerializeField]
-    private GameObject kanistr;
+    private GameManagment gamemanagment;
 
 
-    GameObject lastcilobstacles;
+
+
+    GameObject lastcil;
+    GameObject lastkanystr;
+
     List<GameObject> previosprekazky = new List<GameObject>();
+    List<GameObject> previoskanystry = new List<GameObject>();
 
-    private Vector3[] pozicecile = new Vector3[]
+    private Vector3[] pozicecile = new Vector3[] //cil
     {
-        new Vector3(4.5f, 0.5f, -3f), //levl 0
-        new Vector3(0, 0.5f, 4), //levl 1...
-        new Vector3(5.4f, 0.5f, 3.4f), // levl 2 
-        new Vector3(-7.9f, 0.5f, -1.3f), // levl 3 
-        new Vector3(3.3f, 0.5f, -4.6f), // levl 4
-        new Vector3(-4.5f, 0.5f, -4.5f) // levl 5
+        new Vector3(4.5f, 0.5f, -3f),
+        new Vector3(0, 0.5f, 4), 
+        new Vector3(5.4f, 0.5f, 3.4f), 
+        new Vector3(-7.9f, 0.5f, -1.3f),
+        new Vector3(3.3f, 0.5f, -4.6f),
+        new Vector3(-4.5f, 0.5f, -4.5f) 
     };
 
-    private Vector3[] prekazkalevl_0 = new Vector3[] //levl 0 prekazky
+    private Vector3[] pozicecanistru = new Vector3[]  //kanistr
+    {
+        new Vector3(4.4f, 0.5f, 0f),
+        new Vector3(4.7f, 0.4f, 0f)
+    };
+
+    private Vector3[] prekazkalevl_0 = new Vector3[] //levl0 prekazky
     {
          new Vector3(6f, 0.5f, 2.5f), // prvni prekazka v levlu 0
          new Vector3(0f, 0.5f, 4f), // druha prekazka v levlu 0
@@ -89,82 +100,44 @@ public class SpawnObstacles : MonoBehaviour
         new Vector3(-3.5f, 0.5f, -5.5f)
     };
 
-    private Vector3[] kanistlevl_0 = new Vector3[] // levl 0 kanist
- {
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
- }; private Vector3[] kanistlevl_1 = new Vector3[] // levl 2 kanist
- {
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
- };
-    private Vector3[] kanistlevl_2 = new Vector3[] // levl 3 kanist
-{
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
-};
-    private Vector3[] kanistlevl_3 = new Vector3[] // levl 4 kanist
-{
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
-};
-    private Vector3[] kanistlevl_4 = new Vector3[] // levl 5 kanist
-{
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
-};
-    private Vector3[] kanistlevl_5 = new Vector3[] // levl 5 kanist
-{
-        new Vector3(3.5f, 0.25f,1f),
-        new Vector3(1.5f, 0.25f, -0.3f),
-
-};
 
     Vector3[] VybranePrekazky = new Vector3[0];
-    Vector3[] VybraneKanistr = new Vector3[0];
 
     public void SpawnObs(int levl)
     {
         if (levl < pozicecile.Length)
         {
-            lastcilobstacles = Instantiate(cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
+            lastcil = Instantiate(cil, pozicecile[levl], Quaternion.Euler(0, 180, 0));
         }
-
+        if (levl < pozicecanistru.Length)
+        {
+            GameObject kanytr2 = Instantiate(kanystr, pozicecanistru[levl], Quaternion.Euler(-17, -36, 48));
+            previoskanystry.Add(kanytr2);
+        }
 
         if (levl == 0)
         {
             VybranePrekazky = prekazkalevl_0;
-            VybraneKanistr = kanistlevl_0;
         }
         else if (levl == 1)
         {
             VybranePrekazky = prekazkalevl_1;
-            VybraneKanistr = kanistlevl_1;
         }
         else if (levl == 2)
         {
             VybranePrekazky = prekazkalevl_2;
-            VybraneKanistr = kanistlevl_2;
         }
         else if (levl == 3)
         {
             VybranePrekazky = prekazkalevl_3;
-            VybraneKanistr = kanistlevl_3;
         }
         else if (levl == 4)
         {
             VybranePrekazky = prekazkalevl_4;
-            VybraneKanistr = kanistlevl_4;
         }
         else if (levl == 5)
         {
             VybranePrekazky = prekazkalevl_5;
-            VybraneKanistr = kanistlevl_5;
         }
         else if (levl >= 6)
         {
@@ -176,25 +149,28 @@ public class SpawnObstacles : MonoBehaviour
             GameObject obstacle = Instantiate(prekazka_zabiji, pozice, Quaternion.Euler(0, 180, 0));
             previosprekazky.Add(obstacle);
         }
-        foreach (Vector3 pozice in VybraneKanistr)
-        {
-            GameObject obstacle = Instantiate(kanistr, pozice, Quaternion.Euler(0, 180, 0));
-            previosprekazky.Add(obstacle);
-        }
+ 
 
     }
     public void DeletePreviosObs()
     {
-        if (lastcilobstacles != null)
+        if (lastcil != null)
         {
-            Destroy(lastcilobstacles);
+            Destroy(lastcil);
         }
-
         foreach (GameObject prekazka in previosprekazky)
         {
             Destroy(prekazka);
         }
         previosprekazky.Clear();
 
+    }
+    public void ZnicKanystr()
+    {
+        foreach (GameObject kanystr in previoskanystry)
+        {
+            Destroy(kanystr);
+        }
+        previoskanystry.Clear();
     }
 }

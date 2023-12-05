@@ -7,6 +7,8 @@ TagManager:
   - Prekazka
   - Cil
   - Zabiji
+  - Kanystr
+  - Undefined
   layers:
   - Default
   - TransparentFX
